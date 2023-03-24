@@ -1,0 +1,19 @@
+
+
+@media (max-width: 500px) {
+    .inlineMenu{
+        display: none;
+    }
+}
+
+@media (min-width: 500px) {
+    .hamburgerMenu{
+        display: none;
+        color: white;
+    }
+}
+
+
+.ant-drawer.ant-drawer-title{
+    color: white !important;
+}
