@@ -1,10 +1,11 @@
 import React from "react";
+import { FooterDiv, FooterInfo } from "./style";
 
 const Footer = () => {
   return (
-    <div>
-      <p>footer</p>
-    </div>
+    <FooterDiv>
+      <FooterInfo>footer</FooterInfo>
+    </FooterDiv>
   );
 };
 

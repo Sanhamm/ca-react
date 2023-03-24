@@ -1,10 +1,19 @@
 import { Drawer } from "antd";
 import { useState } from "react";
-import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import { BurgeMenu, Div, StyledMenu } from "./style";
+import {
+  BurgeMenu,
+  CartLength,
+  CartLengthDiv,
+  Div,
+  Li,
+  Logo,
+  MobileCart,
+  ShoppingCart,
+  StyledLink,
+  StyledMenu,
+} from "./style";
 import styles from "./menu.module.css";
-import { Link } from "react-router-dom";
 const Navbar = () => {
   const cart = useSelector((state) => state.cart);
   console.log(cart);
@@ -27,14 +36,15 @@ const Navbar = () => {
         <HamburgerNav />
       </div>
       <Div className={styles.hamburgerMenu}>
+        <Logo>Shoppit</Logo>
         <BurgeMenu onClick={showMenu} />
       </Div>
       <Div>
         <Drawer
-          bodyStyle={{ backgroundColor: "#eeeeee" }}
-          headerStyle={{ backgroundColor: "#eeeeee" }}
+          bodyStyle={{ backgroundColor: "#fdebd0" }}
+          headerStyle={{ backgroundColor: "#fdebd0" }}
           placement='left'
-          title='menu'
+          title='Menu'
           open={menuOpen}
           onClose={onCloseMenu}
         >
@@ -62,29 +72,51 @@ const HamburgerNav = ({ isInline = false }) => {
 
   return (
     <Div>
+      <Logo>SHOPPIT</Logo>
       <StyledMenu
         mode={isInline ? "inline" : "horizontal"}
         items={[
           {
-            label: <Link to='/'>Home</Link>,
+            label: <StyledLink to='/'>Home</StyledLink>,
             key: "home",
           },
           {
-            label: <Link to='/Contact'>Contact Us</Link>,
+            label: <StyledLink to='/Contact'>Contact Us</StyledLink>,
             key: "contact",
           },
           {
             label: (
-              <li>
-                <AiOutlineShoppingCart onClick={showDrawer} />
-                {cart.item.length}
-              </li>
+              <Li>
+                <ShoppingCart onClick={showDrawer} />
+                {cart.item.length === 0 ? (
+                  ""
+                ) : (
+                  <CartLengthDiv>
+                    <CartLength>{cart.item.length}</CartLength>
+                  </CartLengthDiv>
+                )}
+              </Li>
+            ),
+            key: "cart",
+          },
+          {
+            label: (
+              <MobileCart to='/Cart'>
+                Cart {cart.item.length === 0 ? "" : cart.item.length}
+              </MobileCart>
             ),
             key: "cart",
           },
         ]}
       ></StyledMenu>
-      <Drawer title='Cart' placement='right' onClose={onClose} open={open}>
+      <Drawer
+        title='Cart'
+        placement='right'
+        onClose={onClose}
+        open={open}
+        bodyStyle={{ backgroundColor: "#fdebd0" }}
+        headerStyle={{ backgroundColor: "#fdebd0" }}
+      >
         <p>test</p>
       </Drawer>
     </Div>
