@@ -2,10 +2,14 @@ import styled from "styled-components";
 
 export const DivGrid = styled.div`
   display: grid;
-  grid-template-columns: 45% 45%;
+  grid-template-columns: 60% 35%;
   justify-content: space-between;
   max-width: 1280px;
   margin: 30px auto;
+  background-color: #fdf2e9;
+  border: lightgrey solid 1px;
+  border-radius: 5px;
+
   @media (max-width: 1100px) {
     grid-template-columns: 100%;
     justify-content: center;
@@ -28,8 +32,7 @@ export const ImgProduct = styled.img`
   height: 100%;
   width: 100%;
   object-fit: cover;
-  border-radius: 5px;
-  border: solid lightgray 1px;
+  border-radius: 0px 0px 0px 5px;
 `;
 
 export const NewPrice = styled.h3`
@@ -53,12 +56,11 @@ export const ReviewDiv = styled.div`
 `;
 
 export const ProdDisc = styled.p`
-  width: 60%;
+  width: 90%;
 `;
 
 export const DivInfo = styled.div`
   background-color: #fdf2e9;
-  border: lightgrey solid 1px;
   border-radius: 5px;
   padding: 20px;
   @media (max-width: 1100px) {

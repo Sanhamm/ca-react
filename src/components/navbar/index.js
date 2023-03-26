@@ -58,7 +58,6 @@ const Navbar = () => {
 const HamburgerNav = ({ isInline = false }) => {
   const [open, setOpen] = useState(false);
   const cart = useSelector((state) => state.cart);
-  console.log(cart);
 
   const showDrawer = () => {
     setOpen(true);

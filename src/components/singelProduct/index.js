@@ -15,7 +15,6 @@ import {
   OneReviewDiv,
   ProdDisc,
   ReviewDiv,
-  ReviewH3,
 } from "./style";
 import styles from "./singeProduct.module.css";
 import Prosent from "../../utils/prosent";
@@ -56,18 +55,19 @@ const SingelProductListing = () => {
             <h3>{data.discountedPrice},-</h3>
           ) : (
             <>
-              <NewPrice>{prosent.prosent}% OFF!</NewPrice>
-              <h3>
-                <s>{data.price},-</s>
-              </h3>
-
+              <NewPrice>-{prosent.prosent}%</NewPrice>
               <NewPrice>{data.discountedPrice},-</NewPrice>
+
+              <p>
+                <s>{data.price},-</s>
+              </p>
             </>
           )}
           <h3>
             Rating: <Rate disabled defaultValue={data.rating} />
           </h3>
           <ProdDisc className={styles.paddingProduct}>
+            <h4>Description:</h4>
             {data.description}
           </ProdDisc>
           <ButtonStyled onClick={handleAdd} className={styles.marginButton}>

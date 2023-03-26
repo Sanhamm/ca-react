@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Card } from "antd";
+import Search from "antd/es/transfer/search";
 
 export const Img = styled.img`
   width: 100%;
@@ -35,10 +36,18 @@ export const H1 = styled.h1`
 
 export const DivTitle = styled.div`
   padding: 20px;
+  max-width: 1280px;
 `;
 
 export const ProsentOff = styled.h3`
   background-color: red;
-  width: 30%;
+  width: 20%;
   text-align: center;
+  position: absolute;
+  top: 10px;
+  border-radius: 5px;
+`;
+
+export const SearchBar = styled(Search)`
+  height: 30px;
 `;

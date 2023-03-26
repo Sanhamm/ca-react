@@ -57,8 +57,8 @@ export const ShoppingCart = styled(AiOutlineShoppingCart)`
 export const CartLength = styled.p`
   position: absolute;
   font-size: 1rem;
-  top: -29px;
-  left: 5px;
+  top: -27px;
+  left: 8px;
 
   @media (max-width: 700px) {
     display: none;
@@ -67,12 +67,12 @@ export const CartLength = styled.p`
 
 export const CartLengthDiv = styled.div`
   background-color: red;
-  height: 20px;
-  width: 20px;
   position: absolute;
-  top: 0px;
   left: 22px;
   border-radius: 360px;
+  width: 25px;
+  height: 25px;
+  top: -6px;
 `;
 
 export const Logo = styled.h3`
