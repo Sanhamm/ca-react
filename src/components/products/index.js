@@ -1,24 +1,22 @@
-import Search from "antd/es/transfer/search";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import useApi from "../../hooks/useApi";
-import Prosent from "../../utils/prosent";
 import { URL } from "../../utils/urls";
-import Button from "../Button";
-import { NewPrice } from "../singelProduct/style";
-import {
-  CardStyle,
-  DivGrid,
-  DivTitle,
-  H1,
-  Img,
-  ProsentOff,
-  SearchBar,
-} from "./style";
+import { DivGrid, DivTitle, H1, SearchBar } from "./productsListing/style";
 import "./products.modules.css";
+import ListingProd from "./productsListing/ListingProd";
 
 const ProductsListing = () => {
   const { data, isLoading, isError } = useApi(URL);
+  const [products, setProducts] = useState(data);
+  const [inputText, setInputText] = useState("");
+
+  useEffect(() => {
+    setProducts(data);
+  }, [data]);
+
+  const filteredProducts = products.filter((product) => {
+    return product.title.toLowerCase().includes(inputText.toLowerCase());
+  });
 
   if (isLoading) {
     return "Loadin...";
@@ -26,42 +24,25 @@ const ProductsListing = () => {
   if (isError) {
     console.log(isError);
   }
-
-  console.log(data);
-
   return (
     <>
       <DivTitle>
-        <H1>Our Products</H1>
-        <SearchBar placeholder='Search' enterButton />
+        <H1>Welcome to Shoppit</H1>
+        <SearchBar
+          placeholder='Search'
+          enterButton
+          onChange={(prod) => {
+            setInputText(prod.target.value);
+          }}
+        />
       </DivTitle>
       <DivGrid>
-        {data.map((items, idx, idDisc, idImg) => {
-          const prosent = Prosent(items.price, items.discountedPrice);
-          console.log(prosent);
-          return (
-            <CardStyle cover={<Img alt='example' src={items.imageUrl} />}>
-              {prosent.prosent === 0 ? (
-                ""
-              ) : (
-                <ProsentOff>-{prosent.prosent}%</ProsentOff>
-              )}
-              <h1 key={idx}>{items.title}</h1>
-              <p key={idDisc}>{items.description}</p>
-              {items.price === items.discountedPrice ? (
-                <h3>{items.discountedPrice},-</h3>
-              ) : (
-                <>
-                  <NewPrice>{items.discountedPrice},-</NewPrice>
-                  <p>Førpris {items.price},-</p>
-                </>
-              )}
-              <Link to={`/Product/${items.id}`}>
-                <Button children='Show More'></Button>
-              </Link>
-            </CardStyle>
-          );
-        })}
+        {" "}
+        {filteredProducts
+          ? filteredProducts.map((product, idx) => {
+              return <ListingProd key={idx} product={product} />;
+            })
+          : "no data"}
       </DivGrid>
     </>
   );

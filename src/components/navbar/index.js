@@ -1,6 +1,6 @@
 import { Drawer } from "antd";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   BurgeMenu,
   CartLength,
@@ -14,6 +14,9 @@ import {
   StyledMenu,
 } from "./style";
 import styles from "./menu.module.css";
+import CartNav from "./cartnav";
+import Button from "../Button";
+import { clearCart } from "../state/cartSlice";
 const Navbar = () => {
   const cart = useSelector((state) => state.cart);
   console.log(cart);
@@ -22,12 +25,10 @@ const Navbar = () => {
 
   const showMenu = () => {
     setMenuOpen(true);
-    console.log(menuOpen);
   };
 
   const onCloseMenu = () => {
     setMenuOpen(false);
-    console.log(menuOpen);
   };
 
   return (
@@ -47,8 +48,9 @@ const Navbar = () => {
           title='Menu'
           open={menuOpen}
           onClose={onCloseMenu}
+          onClick={onCloseMenu}
         >
-          <HamburgerNav isInline />
+          <HamburgerNav isInline onClick={onCloseMenu} />
         </Drawer>
       </Div>
     </div>
@@ -58,15 +60,14 @@ const Navbar = () => {
 const HamburgerNav = ({ isInline = false }) => {
   const [open, setOpen] = useState(false);
   const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
   const showDrawer = () => {
     setOpen(true);
-    console.log(open);
   };
 
-  const onClose = () => {
+  const closeDrawer = () => {
     setOpen(false);
-    console.log(open);
   };
 
   return (
@@ -91,7 +92,7 @@ const HamburgerNav = ({ isInline = false }) => {
                   ""
                 ) : (
                   <CartLengthDiv>
-                    <CartLength>{cart.item.length}</CartLength>
+                    <CartLength>{cart.totalProducts}</CartLength>
                   </CartLengthDiv>
                 )}
               </Li>
@@ -101,7 +102,7 @@ const HamburgerNav = ({ isInline = false }) => {
           {
             label: (
               <MobileCart to='/Cart'>
-                Cart {cart.item.length === 0 ? "" : cart.item.length}
+                Cart {cart.item.length === 0 ? "" : cart.totalProducts}
               </MobileCart>
             ),
             key: "cart",
@@ -111,12 +112,28 @@ const HamburgerNav = ({ isInline = false }) => {
       <Drawer
         title='Cart'
         placement='right'
-        onClose={onClose}
+        onClose={closeDrawer}
         open={open}
         bodyStyle={{ backgroundColor: "#fdebd0" }}
         headerStyle={{ backgroundColor: "#fdebd0" }}
       >
-        <p>test</p>
+        {cart.item.map((item, idx) => {
+          return <CartNav key={idx} products={item} />;
+        })}
+        {cart.item.length ? <p>Total: {Math.round(cart.total)}</p> : ""}
+        {cart.item.length ? (
+          <StyledLink
+            to='/Checkout'
+            onClick={() => {
+              closeDrawer();
+              dispatch(clearCart());
+            }}
+          >
+            <Button>Checkout</Button>
+          </StyledLink>
+        ) : (
+          ""
+        )}
       </Drawer>
     </Div>
   );

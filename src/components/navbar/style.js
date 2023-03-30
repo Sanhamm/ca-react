@@ -29,6 +29,7 @@ export const Li = styled.li`
 export const StyledLink = styled(Link)`
   text-decoration: none;
   font-size: 1.2rem;
+  color: black;
 `;
 
 export const StyledMenu = styled(Menu)`

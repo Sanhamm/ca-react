@@ -2,8 +2,8 @@ import React from "react";
 import useApi from "../../hooks/useApi";
 import { URL } from "../../utils/urls";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../state/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../state/cartSlice";
 import { Rate } from "antd";
 import { ButtonStyled } from "../Button/style";
 import {
@@ -21,14 +21,22 @@ import Prosent from "../../utils/prosent";
 
 const SingelProductListing = () => {
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+  console.log(cart.item);
 
   const handleAdd = () => {
-    dispatch(addToCart({ name: data.title, price: data.discountedPrice }));
+    dispatch(
+      addToCart({
+        name: data.title,
+        img: data.imageUrl,
+        price: data.discountedPrice,
+        id: data.id,
+      })
+    );
     console.log(data.title, data.discountedPrice);
   };
 
   const { id } = useParams();
-  console.log(id);
   const { data, isLoading, isError } = useApi(URL + id);
 
   if (isLoading) {
@@ -79,7 +87,6 @@ const SingelProductListing = () => {
       <ReviewDiv>
         <h3>{data.reviews.length <= 1 ? "Review" : "Reviews"}:</h3>
         {data.reviews.map((item, idx) => {
-          console.log(item);
           return (
             <OneReviewDiv>
               <Rate disabled defaultValue={item.rating} />
