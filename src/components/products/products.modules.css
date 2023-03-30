@@ -1,0 +1,11 @@
+.ant-input-affix-wrapper {
+    height: 40px;
+    width: 30%;
+     
+}
+
+@media (max-width: 900px) {
+    .ant-input-affix-wrapper {
+        width: 90%;
+    }
+}  
