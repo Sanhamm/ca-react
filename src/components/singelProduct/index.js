@@ -3,7 +3,7 @@ import useApi from "../../hooks/useApi";
 import { URL } from "../../utils/urls";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../state/cartSlice";
+import { addToCart } from "../state/CartSlice";
 import { Rate } from "antd";
 import { ButtonStyled } from "../Button/style";
 import {
