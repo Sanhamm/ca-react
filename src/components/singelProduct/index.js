@@ -22,7 +22,6 @@ import Prosent from "../../utils/prosent";
 const SingelProductListing = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  console.log(cart.item);
 
   const handleAdd = () => {
     dispatch(

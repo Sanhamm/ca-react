@@ -18,9 +18,6 @@ import CartNav from "./cartnav";
 import Button from "../Button";
 import { clearCart } from "../state/CartSlice";
 const Navbar = () => {
-  const cart = useSelector((state) => state.cart);
-  console.log(cart);
-
   const [menuOpen, setMenuOpen] = useState(false);
 
   const showMenu = () => {
