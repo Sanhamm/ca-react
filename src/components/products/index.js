@@ -22,9 +22,9 @@ const ProductsListing = () => {
   // Sorterer produktene basert på valgt sorteringstype
   const sortedProducts = filteredProducts.sort((a, b) => {
     if (sortType === "low") {
-      return a.price - b.price;
+      return a.discountedPrice - b.discountedPrice;
     } else if (sortType === "high") {
-      return b.price - a.price;
+      return b.discountedPrice - a.discountedPrice;
     } else {
       return 0;
     }
@@ -40,6 +40,7 @@ const ProductsListing = () => {
   if (isError) {
     console.log(isError);
   }
+  console.log(data);
   return (
     <>
       <DivTitle>
