@@ -9,6 +9,7 @@ const ProductsListing = () => {
   const { data, isLoading, isError } = useApi(URL);
   const [products, setProducts] = useState(data);
   const [inputText, setInputText] = useState("");
+  const [sortType, setSortType] = useState(""); // Legg til en state for sortering
 
   useEffect(() => {
     setProducts(data);
@@ -18,8 +19,23 @@ const ProductsListing = () => {
     return product.title.toLowerCase().includes(inputText.toLowerCase());
   });
 
+  // Sorterer produktene basert på valgt sorteringstype
+  const sortedProducts = filteredProducts.sort((a, b) => {
+    if (sortType === "low") {
+      return a.price - b.price;
+    } else if (sortType === "high") {
+      return b.price - a.price;
+    } else {
+      return 0;
+    }
+  });
+
+  const handleSortChange = (e) => {
+    setSortType(e.target.value);
+  };
+
   if (isLoading) {
-    return "Loadin...";
+    return "Loading...";
   }
   if (isError) {
     console.log(isError);
@@ -35,14 +51,20 @@ const ProductsListing = () => {
             setInputText(prod.target.value);
           }}
         />
+        <div>
+          <select value={sortType} onChange={handleSortChange} className='sort'>
+            <option value=''>Sort By</option>
+            <option value='low'>Low to High</option>
+            <option value='high'>High to Low</option>
+          </select>
+        </div>
       </DivTitle>
       <DivGrid>
-        {" "}
-        {filteredProducts
-          ? filteredProducts.map((product, idx) => {
+        {sortedProducts
+          ? sortedProducts.map((product, idx) => {
               return <ListingProd key={idx} product={product} />;
             })
-          : "no data"}
+          : "No data"}
       </DivGrid>
     </>
   );
